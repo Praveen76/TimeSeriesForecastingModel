@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Aspire-Index</title>
+
+    <!-- Bootstrap -->
+    <link href="../static/css/bootstrap-4.4.1.css" rel="stylesheet">
+	  <link href="../static/css/style.css" rel="stylesheet" type="text/css">
+
+	  <style>
+	  #predictionTable table{
+		width : 100%;
+	  }
+	  #predictionTable table td, #predictionTable table th
+	  {
+	  text-align: center;
+	  }
+	  </style>
+
+  </head>
+  <body>
+
+    <div class="container-fluid">
+		<div class="row">
+			<div class="col-md-4 logo" style="margin-left:20px;">
+			<img src="../static/images/Aspire_Logo.png">
+			</div>
+			<!--div class="col-md-7 logout" >
+				<a href="#"><img src="images/Logout.png"></a>
+			</div-->
+		</div>
+		<div class="container-fluid">
+
+			<div class="modal-lg-dialog" >
+				<div class="modal-content shadow-lg p-3 mb-5 bg-white rounded" style="top:20px;">
+					<div class="row" style="margin: 20px; margin-left:10px;"><h4>Lead Count Forecasting Model </h4></div>
+							<div class="row" style="display:none; border:solid 1px #cccccc;padding: 20px; width:98%; margin-left:1%;" id="panel-data">
+
+								<div class="col-md-12" id="predictionTable" style="width : 100%;" > </div>
+								<div class = "container" >
+								<div class="col-md-1" style="margin-top: 20px;"><button type="button" class="btn btn-primary" onClick="myFunction3()">close</button></div>
+								</div>
+							</div>
+					<div class="row" style="padding: 10px;">
+						<div class="col-md-4" >
+							<div class="form-group w-40">
+								<p>Enter which one to Forecast (Campaign, LoanPurpose, ZipCode): </p>
+							</div>
+							<div class="form-group w-20">
+								<input type="text" id="target"  class="form-control">
+							</div>
+						</div>
+
+					</div>
+
+					<br>
+					<div class="col-md-12">
+						<button type="button" class="btn btn-primary float-right predict_button" onClick="myFunction2()">Forecast</button>
+					</div>
+					<br>
+
+				</div>
+			</div>
+		</div>
+
+
+		<script>
+			function myFunction() {
+			  document.getElementById("panel").style.display = "block";
+			}
+</script>
+		<script>
+			function myFunction1() {
+			  document.getElementById("panel").style.display = "none";
+			}
+</script>
+		<script>
+			function myFunction2() {
+			  document.getElementById("panel-data").style.display = "block";
+			  var predictionTableDiv = document.getElementById("predictionTable");
+			  const target = document.getElementById("target").value
+			  console.log("The Target before call are "+ target) ;
+			  var obtained_response = null
+			  if (target)
+				{
+				// Needed validation for the input value entered
+				console.log("the target are "+ target) ;
+				predictionTableDiv.innerHTML = "Computing the results";
+				$.ajax({
+				  type: "POST",
+				  url: "/predict",
+				  data: {"foreacastDays": target},
+				  dataType: "json",
+				  success: function(response) {
+							obtained_response = response;
+							console.log("the response received is "+ response);
+							if (response.error){
+								predictionTableDiv.innerHTML = response.error
+							}
+							predictionTableDiv.innerHTML = response.data
+						},
+				  error: function(response){
+				  			obtained_response = response;
+							console.log( "error 	" );
+							predictionTableDiv.innerHTML = "Please enter a valid value";
+						}
+				});
+				}
+			  else{
+					predictionTableDiv.innerHTML = "Please enter a valid value";
+					console.log("Not a valid data")
+				}
+			  console.log("the target after call are "+ target) ;
+			}
+</script>
+
+		<script>
+			function myFunction3() {
+			  document.getElementById("panel-data").style.display = "none";
+			}
+</script>
+
+
+
+       <!--div class="row">
+          <div class="text-center col-lg-6 offset-lg-3">
+             <h4>Footer </h4>
+             <p>Copyright &copy; 2019 &middot; All Rights Reserved &middot; <a href="#" >My Website</a></p>
+          </div>
+       </div>
+    </div-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../static/js/popper.min.js"></script>
+    <script src="../static/js/bootstrap-4.4.1.js"></script>
+  </body>
+</html>

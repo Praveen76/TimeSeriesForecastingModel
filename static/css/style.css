@@ -1,0 +1,52 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	background-image: url("../images/Bg_Image.png");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: bottom right;
+}
+.logo{
+	padding:10px;
+}
+
+.logout{
+	text-align: right;
+	padding: 10px;
+	top:20px;
+	right:20px;
+}
+
+.modal-content  {
+    -webkit-border-radius: 10px !important;
+    -moz-border-radius: 10px !important;
+    border-radius: 10px !important; 
+	 -webkit-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    -moz-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    -o-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    box-shadow: 0 5px 15px rgba(0,0,0,0);
+}
+
+h3,h2,h4{
+	color:#3B3B3B;
+}
+
+/* Added css on 09-Dec-2020*/
+th, tr{
+    #212529
+}
+
+
+.container{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	width: 60%;
+}
+
+
+
+
+
+
